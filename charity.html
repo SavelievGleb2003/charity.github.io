@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Grandma Maria</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fefcea, #f1da36);
+      color: #333;
+    }
+    header {
+      background: linear-gradient(to right, #ff6b6b, #ff4757);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .language-selector {
+      text-align: right;
+      margin: 1rem;
+    }
+    .language-selector select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-top: -30px;
+      position: relative;
+      z-index: 1;
+    }
+    .description {
+      margin-bottom: 2rem;
+    }
+    .description h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ff4757;
+    }
+    .description p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    #map {
+      height: 400px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .donate {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .donate a {
+      background: linear-gradient(to right, #28a745, #218838);
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .donate a:hover {
+      background: linear-gradient(to right, #218838, #1e7e34);
+      transform: scale(1.05);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f1f1;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 data-lang="title">Support Grandma Maria's Life-saving Operation</h1>
+  </header>
+
+  <div class="language-selector">
+    <label for="language">Language:</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="ru">Russian</option>
+      <option value="uk">Ukrainian</option>
+      <option value="verisa">Verisa Leangual</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <section class="description">
+      <h2 data-lang="story">Her Story</h2>
+      <p data-lang="desc">
+        Our beloved Grandma Maria needs urgent medical surgery. She has always been a source of warmth, love, and wisdom for our family and community. We are raising funds to cover her medical expenses, and your generosity can help her get the treatment she desperately needs.
+      </p>
+    </section>
+
+    <section class="gallery">
+      <h2 data-lang="photos">Photo Gallery</h2>
+      <img src="photo1.jpg" alt="Grandmother" />
+      <img src="photo2.jpg" alt="With family" />
+      <img src="photo3.jpg" alt="Grandmother smiling" />
+    </section>
+
+    <section>
+      <h2 data-lang="location">Hospital Location</h2>
+      <div id="map"></div>
+    </section>
+
+    <section class="donate">
+      <h2 data-lang="donateTitle">Make a Difference</h2>
+      <a href="https://your-donation-link.com" target="_blank" data-lang="donateBtn">Donate Now</a>
+    </section>
+  </div>
+
+  <footer>
+    <span data-lang="footer">&copy; 2025 Support Grandma Maria. Every donation helps.</span>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([50.4501, 30.5234], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([50.4501, 30.5234]).addTo(map)
+      .bindPopup('Hospital Location')
+      .openPopup();
+
+    const translations = {
+      en: {
+        title: "Support Grandma Maria's Life-saving Operation",
+        story: "Her Story",
+        desc: "Our beloved Grandma Maria needs urgent medical surgery. She has always been a source of warmth, love, and wisdom for our family and community. We are raising funds to cover her medical expenses, and your generosity can help her get the treatment she desperately needs.",
+        photos: "Photo Gallery",
+        location: "Hospital Location",
+        donateTitle: "Make a Difference",
+        donateBtn: "Donate Now",
+        footer: "\u00a9 2025 Support Grandma Maria. Every donation helps."
+      },
+      ru: {
+        title: "Поддержите бабушку Марию для спасительной операции",
+        story: "Её История",
+        desc: "Наша дорогая бабушка Мария срочно нуждается в медицинской операции. Она всегда была источником тепла, любви и мудрости для нашей семьи и сообщества. Мы собираем средства на её лечение, и ваша щедрость поможет ей получить необходимую помощь.",
+        photos: "Фотогалерея",
+        location: "Местоположение больницы",
+        donateTitle: "Сделайте вклад",
+        donateBtn: "Пожертвовать",
+        footer: "\u00a9 2025 Поддержка бабушки Марии. Каждое пожертвование важно."
+      },
+      uk: {
+        title: "Підтримайте бабусю Марію для рятівної операції",
+        story: "Її Історія",
+        desc: "Наша люба бабуся Марія терміново потребує медичної операції. Вона завжди була джерелом тепла, любові та мудрості для нашої родини та громади. Ми збираємо кошти на її лікування, і ваша щедрість допоможе їй отримати необхідну допомогу.",
+        photos: "Фотогалерея",
+        location: "Місцезнаходження лікарні",
+        donateTitle: "Зробіть внесок",
+        donateBtn: "Пожертвувати",
+        footer: "\u00a9 2025 Підтримка бабусі Марії. Кожна пожертва має значення."
+      },
+      verisa: {
+        title: "Verisa Leangual: Granmariaa Sira Lifesaiv Opre",
+        story: "Granmariaa Tale",
+        desc: "Belov Granmariaa needa urgent healopre. Shea always hearta warm, lovea, wisda. Wea raisa fundaa for opre, every givin helpaa.",
+        photos: "Photoz Verisa",
+        location: "Healloc Placea",
+        donateTitle: "Givaa Lifesaiv",
+        donateBtn: "Help Nowaa",
+        footer: "\u00a9 2025 Granmariaa Helpa. Every helpa countaa."
+      }
+    };
+
+    document.getElementById('language').addEventListener('change', function() {
+      const lang = this.value;
+      const elements = document.querySelectorAll('[data-lang]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-lang');
+        el.textContent = translations[lang][key];
+      });
+    });
+  </script>
+</body>
+</html>
